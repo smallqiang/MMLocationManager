@@ -7,6 +7,7 @@
 //
 
 #import "MMLocationManager.h"
+#import "NSDictionary+MM.h"
 
 @interface MMLocationManager ()
 
@@ -94,10 +95,10 @@
         {
             NSDictionary *addressDic=placeMark.addressDictionary;
             
-            NSString *state=[addressDic objectForKey:@"State"];
-            NSString *city=[addressDic objectForKey:@"City"];
-            NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
-            NSString *street=[addressDic objectForKey:@"Street"];
+            NSString *state=[addressDic stringForKey:@"State"];
+            NSString *city=[addressDic stringForKey:@"City"];
+            NSString *subLocality=[addressDic stringForKey:@"SubLocality"];
+            NSString *street=[addressDic stringForKey:@"Street"];
             
             self.lastCity = city;
             self.lastAddress=[NSString stringWithFormat:@"%@%@%@%@",state,city,subLocality,street];

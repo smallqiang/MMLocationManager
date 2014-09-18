@@ -22,6 +22,7 @@
 		BF605EB118692EB900A9D559 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF605EB018692EB900A9D559 /* TestViewController.m */; };
 		BF605EB5186935EF00A9D559 /* MMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF605EB4186935EF00A9D559 /* MMLocationManager.m */; };
 		BF605EB9186936C700A9D559 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF605EB8186936C700A9D559 /* MapKit.framework */; };
+		C970FBF519CABAE30086A99A /* NSDictionary+MM.m in Sources */ = {isa = PBXBuildFile; fileRef = C970FBF419CABAE30086A99A /* NSDictionary+MM.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		BF605EB4186935EF00A9D559 /* MMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationManager.m; sourceTree = "<group>"; };
 		BF605EB6186936AC00A9D559 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BF605EB8186936C700A9D559 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C970FBF319CABAE30086A99A /* NSDictionary+MM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MM.h"; sourceTree = "<group>"; };
+		C970FBF419CABAE30086A99A /* NSDictionary+MM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MM.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				BF605EB2186935BB00A9D559 /* manager */,
+				C970FBEF19CABAAF0086A99A /* category */,
 				BF605E8C18692DE700A9D559 /* AppDelegate.h */,
 				BF605E8D18692DE700A9D559 /* AppDelegate.m */,
 				BF605EAF18692EB900A9D559 /* TestViewController.h */,
@@ -166,6 +170,15 @@
 				BF605EB4186935EF00A9D559 /* MMLocationManager.m */,
 			);
 			path = manager;
+			sourceTree = "<group>";
+		};
+		C970FBEF19CABAAF0086A99A /* category */ = {
+			isa = PBXGroup;
+			children = (
+				C970FBF319CABAE30086A99A /* NSDictionary+MM.h */,
+				C970FBF419CABAE30086A99A /* NSDictionary+MM.m */,
+			);
+			path = category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +278,7 @@
 			files = (
 				BF605EB5186935EF00A9D559 /* MMLocationManager.m in Sources */,
 				BF605EB118692EB900A9D559 /* TestViewController.m in Sources */,
+				C970FBF519CABAE30086A99A /* NSDictionary+MM.m in Sources */,
 				BF605E8E18692DE700A9D559 /* AppDelegate.m in Sources */,
 				BF605E8A18692DE700A9D559 /* main.m in Sources */,
 			);
