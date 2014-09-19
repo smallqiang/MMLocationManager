@@ -10,6 +10,7 @@
 
 #import "TestViewController.h"
 #import "MMLocationManager.h"
+#import "AFJSONRequestOperation.h"
 
 @interface TestViewController ()
 
@@ -69,9 +70,16 @@
     [allBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [allBtn addTarget:self action:@selector(getAllInfo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:allBtn];
+    
+    UIButton *weatherBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    weatherBtn.frame = CGRectMake(100,IS_IOS7 ? 300 : 280, 120, 30);
+    [weatherBtn setTitle:@"获取当前城市天气" forState:UIControlStateNormal];
+    [weatherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [weatherBtn addTarget:self action:@selector(getWeather) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:weatherBtn];
 }
 
--(void)getLat
+- (void)getLat
 {
     __block __weak TestViewController *wself = self;
     [[MMLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
@@ -79,7 +87,7 @@
     }];
 }
 
--(void)getCity
+- (void)getCity
 {
     __block __weak TestViewController *wself = self;
     [[MMLocationManager shareLocation] getCity:^(NSString *cityString) {
@@ -87,7 +95,7 @@
     }];
 }
 
--(void)getAddress
+- (void)getAddress
 {
     __block __weak TestViewController *wself = self;
     [[MMLocationManager shareLocation] getAddress:^(NSString *addressString) {
@@ -95,7 +103,7 @@
     }];
 }
 
--(void)getAllInfo
+- (void)getAllInfo
 {
     __block NSString *string;
     __block __weak TestViewController *wself = self;
@@ -107,9 +115,41 @@
     }];
 }
 
+- (void)getWeather
+{
+    __block __weak TestViewController *wself = self;
+    [[MMLocationManager shareLocation] getCity:^(NSString *cityString) {
+        [wself getWeatherWithCity:cityString];
+    }];
+}
+
+//获取天气APIhttp://openweathermap.org/
+- (void)getWeatherWithCity:(NSString *)city
+{
+    __block __weak TestViewController *wself = self;
+    NSString *urlString = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?q=%@",city];
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        [wself setWeatherText:JSON withCity:city];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        
+    }];
+    [operation start];
+}
+
+- (void)setWeatherText:(id)JSON withCity:(NSString *)city
+{
+    NSDictionary *dic = JSON;
+    NSArray *weather = [dic objectForKey:@"weather"];
+    NSString *weatherMain = [[weather firstObject] objectForKey:@"main"];
+    float temp = [[[dic objectForKey:@"main"] objectForKey:@"temp"] floatValue] / 10.0;
+    NSString *tempString = [NSString stringWithFormat:@"%.1f",temp];
+    [self setLabelText:[NSString stringWithFormat:@"%@ %@ %@℃",city,weatherMain,tempString]];
+}
+
 -(void)setLabelText:(NSString *)text
 {
-    NSLog(@"text %@",text);
     _textLabel.text = text;
 }
 
